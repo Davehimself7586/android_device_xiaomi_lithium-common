@@ -21,9 +21,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, vendor/xiaomi/msm8996-common/msm8996-common-vendor.mk)
 
 # Overlays
-DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay \
-    $(LOCAL_PATH)/overlay-lineage
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # Screen density
 PRODUCT_AAPT_CONFIG := normal
@@ -76,6 +74,10 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
+# Enable GMS Doze
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/rootdir/mod/google.xml:system/etc/sysconfig/google.xml
+	
 # ANT+
 PRODUCT_PACKAGES += \
     AntHalService \
@@ -100,7 +102,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/aanc_tuning_mixer.txt:system/etc/aanc_tuning_mixer.txt \
-    $(LOCAL_PATH)/audio/audio_effects.conf:system/vendor/etc/audio_effects.conf \
     $(LOCAL_PATH)/audio/audio_output_policy.conf:system/vendor/etc/audio_output_policy.conf \
     $(LOCAL_PATH)/audio/audio_policy_configuration.xml:system/etc/audio_policy_configuration.xml \
     $(LOCAL_PATH)/audio/listen_platform_info.xml:system/etc/listen_platform_info.xml \
@@ -117,6 +118,7 @@ PRODUCT_COPY_FILES += \
 
 # Camera
 PRODUCT_PACKAGES += \
+	GoogleCamera \
     Snap
 
 # CNE
@@ -147,10 +149,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/calib.cfg:system/etc/calib.cfg
-
-# Doze mode
-PRODUCT_PACKAGES += \
-    XiaomiDoze
 
 # Fingerprint
 PRODUCT_PACKAGES += \
@@ -199,10 +197,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     lights.msm8996
 
-# LiveDisplay native
-PRODUCT_PACKAGES += \
-    libjni_livedisplay
-
 # Media
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
@@ -241,10 +235,6 @@ PRODUCT_PACKAGES += \
 # QMI
 PRODUCT_PACKAGES += \
     libjson
-
-# Recovery
-PRODUCT_PACKAGES += \
-    librecovery_updater_xiaomi
 
 # RIL
 PRODUCT_PACKAGES += \
