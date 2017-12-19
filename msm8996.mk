@@ -119,7 +119,7 @@ PRODUCT_COPY_FILES += \
 # Camera
 PRODUCT_PACKAGES += \
 	GoogleCamera \
-    Snap
+        SnapdragonCamera
 
 # CNE
 PRODUCT_PACKAGES += \
